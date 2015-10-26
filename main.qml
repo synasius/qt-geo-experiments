@@ -61,47 +61,34 @@ ApplicationWindow {
         }
     }
 
-    Row {
+    Map {
+        id: map
+
         anchors.fill: parent
+        plugin: somePlugin
 
-        Map {
-            id: map
+        center: src.position.coordinate
+        gesture.enabled: true
+        zoomLevel: 16
 
-            width: parent.width - 200; height: parent.height
-            plugin: somePlugin
+        MapItemView {
+            model: searchModel
+            delegate: MapCircle {
+                center: model.place.location.coordinate
 
-            center: src.position.coordinate
-            gesture.enabled: true
-            zoomLevel: 16
-
-            MapItemView {
-                model: searchModel
-                delegate: MapCircle {
-                    center: model.place.location.coordinate
-
-                    radius: 50
-                    color: "green"
-                    border.width: 0
-                }
-            }
-
-            MapCircle {
-                id: currentPosition
-
-                center: src.position.coordinate
-                radius: 10
-                color: "red"
+                radius: 50
+                color: "green"
                 border.width: 0
             }
         }
 
-        ListView {
-            width: 200; height: parent.height
-            model: searchModel
-            delegate: Column {
-                Text { text: title }
-                Text { text: place.location.address.text }
-            }
+        MapCircle {
+            id: currentPosition
+
+            center: src.position.coordinate
+            radius: 10
+            color: "red"
+            border.width: 0
         }
     }
 }
