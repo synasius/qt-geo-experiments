@@ -12,3 +12,6 @@ QML_IMPORT_PATH =
 # Default rules for deployment.
 include(deployment.pri)
 
+ios {
+    QMAKE_INFO_PLIST = Info.plist
+}
